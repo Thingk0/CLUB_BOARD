@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Builder
@@ -32,5 +35,14 @@ public class User {
 
     @Column(nullable = false)
     private String nickname;        // 닉네임
+
+    private String roles; // USER, ADMIN
+
+    public List<String> getRoleList() {
+        if (this.roles.length() > 0) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 
 }
