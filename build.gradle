@@ -51,11 +51,11 @@ dependencies {
     implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
 
     // h2
-    implementation('com.h2database:h2')
-    runtimeOnly('com.h2database:h2')
+//    implementation('com.h2database:h2')
+//    runtimeOnly('com.h2database:h2')
 
     // maria
-    // runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
 }
 
