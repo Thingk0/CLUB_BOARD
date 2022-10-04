@@ -1,7 +1,7 @@
 package org.club_board.service;
 
 import lombok.RequiredArgsConstructor;
-import org.club_board.dto.UserRegisterRequestDto;
+import org.club_board.dto.user.UserRegisterRequestDto;
 import org.club_board.entity.User;
 import org.club_board.repository.UserRepository;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package org.club_board.dto;
+package org.club_board.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
