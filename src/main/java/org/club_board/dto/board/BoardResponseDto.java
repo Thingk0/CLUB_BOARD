@@ -6,17 +6,18 @@ import lombok.NoArgsConstructor;
 import org.club_board.entity.Board;
 
 @Data
+@AllArgsConstructor
 public class BoardResponseDto {
 
     private String title;
     private String content;
+    private String writer;
 
-    public BoardResponseDto(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
 
     public static BoardResponseDto toDto(Board board) {
-        return new BoardResponseDto(board.getTitle(), board.getContent());
+        return new BoardResponseDto(
+                board.getTitle(),
+                board.getContent(),
+                board.getWriter());
     }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.club_board.dto.user.UserRegisterRequestDto;
 import org.club_board.entity.User;
 import org.club_board.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +14,15 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User register (UserRegisterRequestDto userRegisterRequestDto) {
+    public User register(UserRegisterRequestDto userRegisterRequestDto) {
 
-        User user = userRegisterRequestDto.toEntity();
-        // 이메일을 통해 중복검사.
+        String encode = bCryptPasswordEncoder.encode(userRegisterRequestDto.getPassword());
+        User user = userRegisterRequestDto.toEntity(encode);
+
+        // 이메일을 통해 중복검사. 통과할 경우 return
         validateDuplicateUserEmail(user);
-
         return userRepository.save(user);
     }
 
