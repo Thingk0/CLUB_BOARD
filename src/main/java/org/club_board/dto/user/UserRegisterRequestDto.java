@@ -9,7 +9,7 @@ import org.club_board.entity.User;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRegisterRequestDto {
-    private String email;
+    private String username;
     private String password;
     private String passwordOK;
     private String nickname;
@@ -18,7 +18,7 @@ public class UserRegisterRequestDto {
     // Entity 로 변환.
     public User toEntity(String passwordByEncode) {
         return User.builder()
-                .email(email)
+                .username(username)
                 .password(passwordByEncode)
                 .passwordOK(passwordOK)
                 .nickname(nickname)

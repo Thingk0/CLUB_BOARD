@@ -22,7 +22,7 @@ public class UserService {
         User user = userRegisterRequestDto.toEntity(encode);
 
         // 이메일을 통해 중복검사. 통과할 경우 return
-        validateDuplicateUserEmail(user);
+//        validateDuplicateUserEmail(user);
         return userRepository.save(user);
     }
 
@@ -37,12 +37,12 @@ public class UserService {
     }
 
     // 아이디 중복검사
-    private void validateDuplicateUserEmail(User user) {
-        userRepository.findByEmail(user.getEmail())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 이메일입니다.");
-                });
-    }
+//    private void validateDuplicateUserEmail(User user) {
+//        userRepository.findByEmail(user.getEmail())
+//                .ifPresent(m -> {
+//                    throw new IllegalStateException("이미 존재하는 이메일입니다.");
+//                });
+//    }
 }
 
 
