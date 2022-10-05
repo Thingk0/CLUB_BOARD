@@ -44,16 +44,16 @@ public class BoardService {
 
     // 게시물 작성
     @Transactional
-    public BoardCreateRequestDto createBoard(BoardCreateRequestDto boardCreateRequestDto, User user) {
+    public BoardResponseDto createBoard(BoardCreateRequestDto boardCreateRequestDto, User user) {
         Board board = Board.builder()
                 .title(boardCreateRequestDto.getTitle())
                 .content(boardCreateRequestDto.getContent())
-                .writer(boardCreateRequestDto.getWriter())
+                .writer(user.getNickname())
                 .user(user)
                 .build();
 
         boardRepository.save(board);
-        return BoardCreateRequestDto.toDto(board);
+        return BoardResponseDto.toDto(board);
     }
 
     // 게시물 수정

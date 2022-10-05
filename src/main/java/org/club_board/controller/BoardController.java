@@ -48,7 +48,8 @@ public class BoardController {
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();
 
-        return new Response<>("성공", "게시글 작성", boardService.createBoard(boardCreateRequestDto, user));
+        return new Response<>("성공", "게시글 작성",
+                boardService.createBoard(boardCreateRequestDto, user));
     }
 
 
