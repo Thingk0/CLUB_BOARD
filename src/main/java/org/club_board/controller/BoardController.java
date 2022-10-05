@@ -22,12 +22,12 @@ public class BoardController {
     private final UserRepository userRepository;
 
 
-    // 전체 게시글 조회
+    // 동아리별 게시글 조회
     @ApiOperation(value = "전체 게시글 조회", notes = "전체 게시글을 조회한다.")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping
-    public Response<?> getBoardList() {
-        return new Response<>("성공", "전체 게시글 조회", boardService.getBoardList());
+    @GetMapping("/{clubId}/list")
+    public Response<?> getBoardList(@PathVariable Long clubId) {
+        return new Response<>("성공", "전체 게시글 조회", boardService.getBoardList(clubId));
     }
 
     // 개별 게시글 조회
@@ -41,15 +41,16 @@ public class BoardController {
     // 게시글 작성
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성한다.")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/create")
+    @PostMapping("/{clubId}/create")
     public Response<?> createBoard(@RequestBody BoardCreateRequestDto boardCreateRequestDto,
+                                   @PathVariable Long clubId,
                                    Authentication authentication) {
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();
 
         return new Response<>("성공", "게시글 작성",
-                boardService.createBoard(boardCreateRequestDto, user));
+                boardService.createBoard(boardCreateRequestDto, clubId, user));
     }
 
 
@@ -58,12 +59,12 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/update/{id}")
     public Response<?> updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto,
-                                   @PathVariable("id") Long id,
+                                   @PathVariable Long id,
                                    Authentication authentication) {
         // 1. 현재 요청을 보낸 유저의 JWT 토큰 정보(프론트엔드가 헤더를 통해 보내줌)를 바탕으로
-        // 현재 로그인한 유저의 정보가 PathVariable로 들어오는 BoardID 의 작성자인 user정보와 일치하는지 확인하고
+        // 현재 로그인한 유저의 정보가 PathVariable 로 들어오는 BoardID 의 작성자인 user 정보와 일치하는지 확인하고
         // 맞으면 아래 로직 수행, 틀리면 다른 로직(ResponseFail 등 커스텀으로 만들어서) 수행
-        // 이건 if문으로 처리할 수 있습니다. * 이 방법 말고 service 내부에서 확인해도 상관 없음
+        // 이건 if 문으로 처리할 수 있습니다. * 이 방법 말고 service 내부에서 확인해도 상관 없음
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();

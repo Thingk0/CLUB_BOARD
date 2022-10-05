@@ -8,15 +8,12 @@ import org.club_board.entity.Board;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardUpdateRequestDto {
 
     private String title;
     private String content;
-
-    public BoardUpdateRequestDto(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
     public static BoardUpdateRequestDto toDto(Board board) {
         return BoardUpdateRequestDto.builder()
                 .title(board.getTitle())

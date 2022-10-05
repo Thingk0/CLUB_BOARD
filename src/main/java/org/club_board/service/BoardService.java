@@ -21,9 +21,10 @@ public class BoardService {
 
     // 전체 게시물 조회
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> getBoardList() {
+    public List<BoardResponseDto> getBoardList(Long clubId) {
         // 리포지터리로 부터 Board 객체를 모두 List 로 반환.
-        List<Board> boards = boardRepository.findAll();
+        // clubId 를 통해 해당 아이디가 들어가는 보드들만 리스트로 만들어서 반환.
+        List<Board> boards = boardRepository.findByClubId(clubId);
 
         // Dto 로 반환해주기 위해서 List 새롭게 생성.
         List<BoardResponseDto> boarList = new ArrayList<>();
@@ -44,10 +45,13 @@ public class BoardService {
 
     // 게시물 작성
     @Transactional
-    public BoardResponseDto createBoard(BoardCreateRequestDto boardCreateRequestDto, User user) {
+    public BoardResponseDto createBoard(BoardCreateRequestDto boardCreateRequestDto,
+                                        Long clubId,
+                                        User user) {
         Board board = Board.builder()
                 .title(boardCreateRequestDto.getTitle())
                 .content(boardCreateRequestDto.getContent())
+                .clubId(clubId)
                 .writer(user.getNickname())
                 .user(user)
                 .build();
@@ -66,6 +70,7 @@ public class BoardService {
         board.setTitle(boardUpdateRequestDto.getTitle());
         board.setContent(boardUpdateRequestDto.getContent());
 
+        boardRepository.save(board);
         return BoardUpdateRequestDto.toDto(board);
     }
 

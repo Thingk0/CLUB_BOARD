@@ -29,6 +29,10 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    // 동아리 카테고리 id
+    @Column(nullable = false)
+    private Long clubId;
 }
 
 
