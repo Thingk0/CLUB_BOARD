@@ -1,19 +1,16 @@
-package org.club_board.dto.board;
+package org.club_board.dto.board.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.club_board.entity.Board;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BoardUpdateRequestDto {
 
-    private String title;
-    private String content;
+    private final String title;
+    private final String content;
+
     public static BoardUpdateRequestDto toDto(Board board) {
         return BoardUpdateRequestDto.builder()
                 .title(board.getTitle())

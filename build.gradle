@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org'
-version = '0.1.1-beta'
+version = '0.1.2-beta-fianl'
 sourceCompatibility = '11'
 
 configurations {
